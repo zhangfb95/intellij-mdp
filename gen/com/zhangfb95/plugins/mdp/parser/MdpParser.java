@@ -1,0 +1,132 @@
+// This is a generated file. Not intended for manual editing.
+package com.zhangfb95.plugins.mdp.parser;
+
+import com.intellij.lang.PsiBuilder;
+import com.intellij.lang.PsiBuilder.Marker;
+import static com.zhangfb95.plugins.mdp.psi.MdpTypes.*;
+import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.lang.PsiParser;
+import com.intellij.lang.LightPsiParser;
+
+@SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
+public class MdpParser implements PsiParser, LightPsiParser {
+
+  public ASTNode parse(IElementType t, PsiBuilder b) {
+    parseLight(t, b);
+    return b.getTreeBuilt();
+  }
+
+  public void parseLight(IElementType t, PsiBuilder b) {
+    boolean r;
+    b = adapt_builder_(t, b, this, null);
+    Marker m = enter_section_(b, 0, _COLLAPSE_, null);
+    if (t == ELEMENT) {
+      r = element(b, 0);
+    }
+    else if (t == HEADER) {
+      r = header(b, 0);
+    }
+    else if (t == LINK) {
+      r = link(b, 0);
+    }
+    else {
+      r = parse_root_(t, b, 0);
+    }
+    exit_section_(b, 0, m, t, r, true, TRUE_CONDITION);
+  }
+
+  protected boolean parse_root_(IElementType t, PsiBuilder b, int l) {
+    return mdpFile(b, l + 1);
+  }
+
+  /* ********************************************************** */
+  // !<<eof>> (link | header | COMMENT)
+  public static boolean element(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "element")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ELEMENT, "<element>");
+    r = element_0(b, l + 1);
+    r = r && element_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // !<<eof>>
+  private static boolean element_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "element_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NOT_);
+    r = !eof(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // link | header | COMMENT
+  private static boolean element_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "element_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = link(b, l + 1);
+    if (!r) r = header(b, l + 1);
+    if (!r) r = consumeToken(b, COMMENT);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // HEADER_LEVEL_1 | HEADER_LEVEL_2 | HEADER_LEVEL_3 | HEADER_LEVEL_4 | HEADER_LEVEL_5 | HEADER_LEVEL_6
+  public static boolean header(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "header")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, HEADER, "<header>");
+    r = consumeToken(b, HEADER_LEVEL_1);
+    if (!r) r = consumeToken(b, HEADER_LEVEL_2);
+    if (!r) r = consumeToken(b, HEADER_LEVEL_3);
+    if (!r) r = consumeToken(b, HEADER_LEVEL_4);
+    if (!r) r = consumeToken(b, HEADER_LEVEL_5);
+    if (!r) r = consumeToken(b, HEADER_LEVEL_6);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // element|CRLF
+  static boolean item_(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "item_")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = element(b, l + 1);
+    if (!r) r = consumeToken(b, CRLF);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // LINK_BEFORE LINK_AFTER
+  public static boolean link(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "link")) return false;
+    if (!nextTokenIs(b, LINK_BEFORE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 2, LINK_BEFORE, LINK_AFTER);
+    exit_section_(b, m, LINK, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // item_*
+  static boolean mdpFile(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "mdpFile")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!item_(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "mdpFile", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+}

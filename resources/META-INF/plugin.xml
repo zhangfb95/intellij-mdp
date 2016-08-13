@@ -1,0 +1,38 @@
+<idea-plugin version="2">
+    <id>com.zhangfb95.plugins.mdp</id>
+    <name>markdown project</name>
+    <version>1.0</version>
+    <vendor email="zhangfb95@aliyun.com" url="https://zhangfb95.github.io">ssk</vendor>
+
+    <description><![CDATA[
+      This is a simple markdown supported plugin.<br>
+      <em>Enjoy yourself!</em>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>v1.0</em>
+    ]]>
+    </change-notes>
+
+    <idea-version since-build="141.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <additionalTextAttributes scheme="Default" file="com/zhangfb95/plugins/mdp/colorSchemes/MdpDefault.xml"/>
+        <fileTypeFactory implementation="com.zhangfb95.plugins.mdp.file.MdpFileTypeFactory"/>
+        <lang.parserDefinition language="markdown" implementationClass="com.zhangfb95.plugins.mdp.MdpParserDefinition"/>
+        <lang.syntaxHighlighterFactory key="markdown"
+                                       implementationClass="com.zhangfb95.plugins.mdp.highlighter.MdpSyntaxHighlighterFactory"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+</idea-plugin>

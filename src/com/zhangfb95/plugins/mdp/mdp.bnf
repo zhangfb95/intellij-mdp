@@ -1,0 +1,43 @@
+{
+  parserClass="com.zhangfb95.plugins.mdp.parser.MdpParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Mdp"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.zhangfb95.plugins.mdp.psi"
+  psiImplPackage="com.zhangfb95.plugins.mdp.psi.impl"
+
+  elementTypeHolderClass="com.zhangfb95.plugins.mdp.psi.MdpTypes"
+  elementTypeClass="com.zhangfb95.plugins.mdp.psi.MdpElementType"
+  tokenTypeClass="com.zhangfb95.plugins.mdp.psi.MdpTokenType"
+
+  psiImplUtilClass="com.zhangfb95.plugins.mdp.psi.impl.MdpPsiImplUtil"
+
+  tokens=[
+    LEFT_BRACKET="["
+    RIGHT_BRACKET="]"
+    LEFT_PAREN="("
+    RIGHT_PAREN=")"
+
+    LINK_BEFORE="regexp:.*\[.*\]"
+    LINK_AFTER="regexp:\(.*\)"
+    COMMENT="regexp:<!--.*-->"
+    HEADER_LEVEL_1="regexp:#\s+"
+    HEADER_LEVEL_2="regexp:##\s+"
+    HEADER_LEVEL_3="regexp:###\s+"
+    HEADER_LEVEL_4="regexp:####\s+"
+    HEADER_LEVEL_5="regexp:#####\s+"
+    HEADER_LEVEL_6="regexp:######\s+"
+  ]
+}
+
+mdpFile ::= item_*
+
+private item_ ::= (element|CRLF)
+
+element ::= !<<eof>> (link | header | COMMENT)
+
+header ::= (HEADER_LEVEL_1 | HEADER_LEVEL_2 | HEADER_LEVEL_3 | HEADER_LEVEL_4 | HEADER_LEVEL_5 | HEADER_LEVEL_6)
+
+link ::= (LINK_BEFORE LINK_AFTER) {pin=2}
