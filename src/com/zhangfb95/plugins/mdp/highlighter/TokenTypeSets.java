@@ -9,12 +9,10 @@ import com.zhangfb95.plugins.mdp.psi.MdpTypes;
 public interface TokenTypeSets extends MdpTypes {
 
     TokenSet COMMENT_SET = TokenSet.create(COMMENT);
-    TokenSet LINK_LEFT_PAREN_SET = TokenSet.create(LINK_BEFORE);
-    TokenSet LINK_RIGHT_PAREN_SET = TokenSet.create(LINK_AFTER);
-    TokenSet HEADER_LEVEL_1_SET = TokenSet.create(HEADER_LEVEL_1);
-    TokenSet HEADER_LEVEL_2_SET = TokenSet.create(HEADER_LEVEL_2);
-    TokenSet HEADER_LEVEL_3_SET = TokenSet.create(HEADER_LEVEL_3);
-    TokenSet HEADER_LEVEL_4_SET = TokenSet.create(HEADER_LEVEL_4);
-    TokenSet HEADER_LEVEL_5_SET = TokenSet.create(HEADER_LEVEL_5);
-    TokenSet HEADER_LEVEL_6_SET = TokenSet.create(HEADER_LEVEL_6);
+    TokenSet ANY_SET = TokenSet.create(ANY);
+    TokenSet WIKI_LINK_END_SET = TokenSet.create(WIKI_LINK_END);
+    TokenSet WIKI_LINK_REF_SET = TokenSet.create(WIKI_LINK_REF);
+    TokenSet WIKI_LINK_SEPARATOR_SET = TokenSet.create(WIKI_LINK_SEPARATOR);
+    TokenSet WIKI_LINK_START_SET = TokenSet.create(WIKI_LINK_START);
+    TokenSet WIKI_LINK_TEXT_SET = TokenSet.create(WIKI_LINK_TEXT);
 }

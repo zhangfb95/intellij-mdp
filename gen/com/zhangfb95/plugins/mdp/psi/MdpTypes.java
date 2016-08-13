@@ -9,24 +9,17 @@ import com.zhangfb95.plugins.mdp.psi.impl.*;
 public interface MdpTypes {
 
   IElementType ELEMENT = new MdpElementType("ELEMENT");
-  IElementType HEADER = new MdpElementType("HEADER");
+  IElementType LINE = new MdpElementType("LINE");
   IElementType LINK = new MdpElementType("LINK");
 
-  IElementType ALL = new MdpTokenType(".*");
+  IElementType ANY = new MdpTokenType("ANY");
   IElementType COMMENT = new MdpTokenType("COMMENT");
   IElementType CRLF = new MdpTokenType("CRLF");
-  IElementType HEADER_LEVEL_1 = new MdpTokenType("HEADER_LEVEL_1");
-  IElementType HEADER_LEVEL_2 = new MdpTokenType("HEADER_LEVEL_2");
-  IElementType HEADER_LEVEL_3 = new MdpTokenType("HEADER_LEVEL_3");
-  IElementType HEADER_LEVEL_4 = new MdpTokenType("HEADER_LEVEL_4");
-  IElementType HEADER_LEVEL_5 = new MdpTokenType("HEADER_LEVEL_5");
-  IElementType HEADER_LEVEL_6 = new MdpTokenType("HEADER_LEVEL_6");
-  IElementType LEFT_BRACKET = new MdpTokenType("[");
-  IElementType LEFT_PAREN = new MdpTokenType("(");
-  IElementType LINK_AFTER = new MdpTokenType("LINK_AFTER");
-  IElementType LINK_BEFORE = new MdpTokenType("LINK_BEFORE");
-  IElementType RIGHT_BRACKET = new MdpTokenType("]");
-  IElementType RIGHT_PAREN = new MdpTokenType(")");
+  IElementType WIKI_LINK_END = new MdpTokenType(")");
+  IElementType WIKI_LINK_REF = new MdpTokenType(".*");
+  IElementType WIKI_LINK_SEPARATOR = new MdpTokenType("]\\s+(");
+  IElementType WIKI_LINK_START = new MdpTokenType("[");
+  IElementType WIKI_LINK_TEXT = new MdpTokenType("WIKI_LINK_TEXT");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -34,8 +27,8 @@ public interface MdpTypes {
        if (type == ELEMENT) {
         return new MdpElementImpl(node);
       }
-      else if (type == HEADER) {
-        return new MdpHeaderImpl(node);
+      else if (type == LINE) {
+        return new MdpLineImpl(node);
       }
       else if (type == LINK) {
         return new MdpLinkImpl(node);

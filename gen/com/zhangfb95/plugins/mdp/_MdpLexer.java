@@ -23,7 +23,8 @@ public class _MdpLexer implements FlexLexer {
 
   /** lexical states */
   public static final int YYINITIAL = 0;
-  public static final int WAITING_VALUE = 2;
+  public static final int WIKI_LINK = 2;
+  public static final int WIKI_LINK_PRE = 4;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -32,7 +33,7 @@ public class _MdpLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1, 1
+     0,  0,  1,  1,  2, 2
   };
 
   /** 
@@ -54,9 +55,9 @@ public class _MdpLexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 640 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\2\1\1\1\4\1\5\1\1\22\0\1\2\1\12\1\0\1\15\4\0\1\7\1\10\3\0\1\13\16"+
-    "\0\1\11\1\0\1\14\34\0\1\3\1\0\1\6\47\0\1\4\32\0\1\16\337\0\1\16\177\0\13\16"+
-    "\35\0\2\4\5\0\1\16\57\0\1\16\40\0");
+    "\11\0\1\2\1\1\1\4\2\1\22\0\1\2\1\12\6\0\1\7\1\10\3\0\1\13\16\0\1\11\1\0\1"+
+    "\14\34\0\1\3\1\0\1\5\47\0\1\4\32\0\1\6\337\0\1\6\177\0\13\6\35\0\2\4\5\0\1"+
+    "\6\57\0\1\6\40\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -64,13 +65,12 @@ public class _MdpLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\1\1\1\2\4\1\1\3\1\0\1\4\1\0"+
-    "\1\5\1\0\1\6\2\0\1\6\1\7\2\0\1\7"+
-    "\1\10\2\0\1\10\1\11\2\0\1\11\1\12\1\0"+
-    "\1\13\1\12\2\14";
+    "\3\0\1\1\1\2\4\1\1\3\1\4\1\5\1\4"+
+    "\4\0\1\6\1\0\1\7\4\0\1\10\2\0\1\11"+
+    "\1\0\1\11\2\0\1\12";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[36];
+    int [] result = new int[33];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -95,14 +95,14 @@ public class _MdpLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\17\0\36\0\55\0\74\0\113\0\132\0\151"+
-    "\0\170\0\74\0\74\0\113\0\113\0\207\0\226\0\245"+
-    "\0\264\0\303\0\322\0\341\0\360\0\377\0\u010e\0\u011d"+
-    "\0\u012c\0\u013b\0\u014a\0\u0159\0\u0168\0\u0177\0\u0186\0\u0195"+
-    "\0\360\0\u01a4\0\u01b3\0\u01c2";
+    "\0\0\0\15\0\32\0\47\0\64\0\101\0\116\0\133"+
+    "\0\150\0\47\0\47\0\47\0\165\0\101\0\202\0\217"+
+    "\0\133\0\133\0\150\0\150\0\234\0\251\0\266\0\303"+
+    "\0\47\0\320\0\335\0\266\0\352\0\320\0\367\0\u0104"+
+    "\0\352";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[36];
+    int [] result = new int[33];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -125,32 +125,24 @@ public class _MdpLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\2\4\1\5\1\0\1\4\1\3\1\6\1\3"+
-    "\1\7\3\3\1\10\2\3\1\4\1\11\1\3\1\0"+
-    "\1\11\11\3\20\0\2\4\2\0\1\4\11\0\1\12"+
-    "\1\0\2\12\2\0\1\13\10\12\1\14\1\0\2\14"+
-    "\2\0\2\14\1\15\6\14\12\0\1\16\5\0\2\17"+
-    "\1\0\2\17\7\0\1\20\1\17\1\0\1\4\1\11"+
-    "\2\0\1\11\24\0\1\21\3\0\1\22\2\17\1\22"+
-    "\2\17\10\22\1\17\1\0\2\23\1\0\2\23\7\0"+
-    "\1\24\1\23\13\0\1\25\3\0\1\22\1\0\2\22"+
-    "\2\0\11\22\1\26\2\23\1\26\2\23\10\26\1\23"+
-    "\1\0\2\27\1\0\2\27\7\0\1\30\1\27\1\25"+
-    "\1\0\2\25\2\0\5\25\1\31\3\25\1\26\1\0"+
-    "\2\26\2\0\11\26\1\32\2\27\1\32\2\27\10\32"+
-    "\1\27\1\0\2\33\1\0\2\33\7\0\1\34\1\33"+
-    "\1\25\1\0\2\25\2\0\5\25\1\35\3\25\1\32"+
-    "\1\0\2\32\2\0\11\32\1\36\2\33\1\36\2\33"+
-    "\10\36\1\33\1\0\2\37\1\0\2\37\7\0\1\40"+
-    "\1\37\1\25\1\0\2\25\2\0\5\25\1\35\1\41"+
-    "\2\25\1\36\1\0\2\36\2\0\11\36\1\42\2\37"+
-    "\1\42\2\37\10\42\1\37\1\0\2\43\1\0\2\43"+
-    "\10\0\1\43\1\42\1\0\2\42\2\0\11\42\1\44"+
-    "\2\43\1\44\2\43\10\44\1\43\1\44\1\0\2\44"+
-    "\2\0\11\44";
+    "\1\4\2\5\1\6\5\4\1\7\6\4\1\10\3\4"+
+    "\1\11\1\12\4\4\3\13\1\14\1\13\1\15\7\13"+
+    "\16\0\2\5\12\0\1\16\1\0\2\16\1\0\1\17"+
+    "\7\16\12\0\1\20\2\0\1\21\1\0\2\21\1\0"+
+    "\1\22\7\21\1\23\1\0\2\23\1\0\3\23\1\24"+
+    "\4\23\1\0\2\25\1\0\1\25\1\0\1\25\6\0"+
+    "\1\16\1\26\1\17\1\16\1\26\2\17\1\27\5\16"+
+    "\13\0\1\30\2\0\2\25\1\0\1\25\1\0\1\25"+
+    "\1\31\6\0\2\26\1\0\1\26\1\0\1\26\1\32"+
+    "\5\0\1\27\1\0\2\27\1\0\1\33\2\27\1\34"+
+    "\4\27\13\0\1\35\1\0\1\32\1\0\2\32\1\0"+
+    "\3\32\1\36\4\32\1\27\1\26\1\33\1\27\1\26"+
+    "\2\33\1\27\1\34\4\27\1\35\1\0\2\35\1\0"+
+    "\6\35\1\37\2\35\1\0\2\35\1\0\6\35\1\40"+
+    "\2\35\1\0\2\35\1\0\6\35\1\40\1\41";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[465];
+    int [] result = new int[273];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -188,12 +180,12 @@ public class _MdpLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\1\11\6\1\1\0\1\1\1\0\1\1\1\0"+
-    "\1\1\2\0\2\1\2\0\2\1\2\0\2\1\2\0"+
-    "\2\1\1\0\4\1";
+    "\3\0\1\11\5\1\3\11\1\1\4\0\1\1\1\0"+
+    "\1\1\4\0\1\11\2\0\1\1\1\0\1\1\2\0"+
+    "\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[36];
+    int [] result = new int[33];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -501,51 +493,43 @@ public class _MdpLexer implements FlexLexer {
           case 1: 
             { return TokenType.WHITE_SPACE;
             }
-          case 13: break;
+          case 11: break;
           case 2: 
             { yybegin(YYINITIAL); return TokenType.WHITE_SPACE;
             }
-          case 14: break;
+          case 12: break;
           case 3: 
-            { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE;
+            { yybegin(YYINITIAL); return WIKI_LINK_END;
+            }
+          case 13: break;
+          case 4: 
+            { return WIKI_LINK_TEXT;
+            }
+          case 14: break;
+          case 5: 
+            { return WIKI_LINK_START;
             }
           case 15: break;
-          case 4: 
-            { yybegin(YYINITIAL); return LINK_BEFORE;
+          case 6: 
+            { yybegin(WIKI_LINK_PRE);
             }
           case 16: break;
-          case 5: 
-            { yybegin(YYINITIAL); return LINK_AFTER;
+          case 7: 
+            { return WIKI_LINK_REF;
             }
           case 17: break;
-          case 6: 
-            { yybegin(YYINITIAL); return HEADER_LEVEL_1;
+          case 8: 
+            { yybegin(YYINITIAL); return WIKI_LINK_SEPARATOR;
             }
           case 18: break;
-          case 7: 
-            { yybegin(YYINITIAL); return HEADER_LEVEL_2;
+          case 9: 
+            { yybegin(WIKI_LINK); return WIKI_LINK_TEXT;
             }
           case 19: break;
-          case 8: 
-            { yybegin(YYINITIAL); return HEADER_LEVEL_3;
-            }
-          case 20: break;
-          case 9: 
-            { yybegin(YYINITIAL); return HEADER_LEVEL_4;
-            }
-          case 21: break;
           case 10: 
-            { yybegin(YYINITIAL); return HEADER_LEVEL_5;
-            }
-          case 22: break;
-          case 11: 
             { yybegin(YYINITIAL); return COMMENT;
             }
-          case 23: break;
-          case 12: 
-            { yybegin(YYINITIAL); return HEADER_LEVEL_6;
-            }
-          case 24: break;
+          case 20: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

@@ -7,10 +7,4 @@ import com.intellij.psi.PsiElement;
 
 public interface MdpLink extends PsiElement {
 
-  @NotNull
-  PsiElement getLinkAfter();
-
-  @NotNull
-  PsiElement getLinkBefore();
-
 }

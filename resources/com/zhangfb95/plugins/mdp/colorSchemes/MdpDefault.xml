@@ -1,57 +1,35 @@
 <?xml version='1.0'?>
 <list>
-    <option name="MDP.LINK_LEFT_PAREN">
+    <option name="MDP.WIKI_LINK_START">
         <value>
-            <option name="FOREGROUND" value="008000"/>
-            <option name="BACKGROUND" value="e3fcff"/>
-            <option name="FONT_TYPE" value="1"/>
+            <option name="FOREGROUND" value="c604b7"/>
         </value>
     </option>
-    <option name="MDP.LINK_RIGHT_PAREN">
+    <option name="MDP.WIKI_LINK_END">
         <value>
-            <option name="FOREGROUND" value="660000"/>
+            <option name="FOREGROUND" value="c604b7"/>
         </value>
     </option>
-    <option name="MDP.HEADER_LEVEL_1">
+    <option name="MDP.WIKI_LINK_TEXT">
         <value>
             <option name="FOREGROUND" value="90"/>
             <option name="BACKGROUND" value="ececec"/>
             <option name="FONT_TYPE" value="1"/>
         </value>
     </option>
-    <option name="MDP.HEADER_LEVEL_2">
+    <option name="MDP.WIKI_LINK_SEPARATOR">
         <value>
-            <option name="FOREGROUND" value="90"/>
-            <option name="BACKGROUND" value="ececec"/>
-            <option name="FONT_TYPE" value="1"/>
+            <option name="FOREGROUND" value="c604b7"/>
         </value>
     </option>
-    <option name="MDP.HEADER_LEVEL_3">
+    <option name="MDP.ANY">
         <value>
-            <option name="FOREGROUND" value="90"/>
-            <option name="BACKGROUND" value="ececec"/>
-            <option name="FONT_TYPE" value="1"/>
+            <option name="FOREGROUND" value="ff0000"/>
         </value>
     </option>
-    <option name="MDP.HEADER_LEVEL_4">
+    <option name="MDP.WIKI_LINK_REF">
         <value>
-            <option name="FOREGROUND" value="90"/>
-            <option name="BACKGROUND" value="ececec"/>
-            <option name="FONT_TYPE" value="1"/>
-        </value>
-    </option>
-    <option name="MDP.HEADER_LEVEL_5">
-        <value>
-            <option name="FOREGROUND" value="90"/>
-            <option name="BACKGROUND" value="ececec"/>
-            <option name="FONT_TYPE" value="1"/>
-        </value>
-    </option>
-    <option name="MDP.HEADER_LEVEL_6">
-        <value>
-            <option name="FOREGROUND" value="90"/>
-            <option name="BACKGROUND" value="ececec"/>
-            <option name="FONT_TYPE" value="1"/>
+            <option name="FOREGROUND" value="c604b7"/>
         </value>
     </option>
 </list>

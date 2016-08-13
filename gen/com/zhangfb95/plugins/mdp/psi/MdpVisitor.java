@@ -11,7 +11,7 @@ public class MdpVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitHeader(@NotNull MdpHeader o) {
+  public void visitLine(@NotNull MdpLine o) {
     visitPsiElement(o);
   }
 

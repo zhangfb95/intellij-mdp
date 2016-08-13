@@ -11,14 +11,12 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
 public class Colors {
 
     public static final TextAttributesKey COMMENT_ATTR_KEY = createKey("COMMENT", BLOCK_COMMENT);
-    public static final TextAttributesKey LINK_LEFT_PAREN_ATTR_KEY = createKey("LINK_LEFT_PAREN");
-    public static final TextAttributesKey LINK_RIGHT_PAREN_ATTR_KEY = createKey("LINK_RIGHT_PAREN");
-    public static final TextAttributesKey HEADER_LEVEL_1_ATTR_KEY = createKey("HEADER_LEVEL_1");
-    public static final TextAttributesKey HEADER_LEVEL_2_ATTR_KEY = createKey("HEADER_LEVEL_2");
-    public static final TextAttributesKey HEADER_LEVEL_3_ATTR_KEY = createKey("HEADER_LEVEL_3");
-    public static final TextAttributesKey HEADER_LEVEL_4_ATTR_KEY = createKey("HEADER_LEVEL_4");
-    public static final TextAttributesKey HEADER_LEVEL_5_ATTR_KEY = createKey("HEADER_LEVEL_5");
-    public static final TextAttributesKey HEADER_LEVEL_6_ATTR_KEY = createKey("HEADER_LEVEL_6");
+    public static final TextAttributesKey ANY_ATTR_KEY = createKey("ANY");
+    public static final TextAttributesKey WIKI_LINK_END_ATTR_KEY = createKey("WIKI_LINK_END");
+    public static final TextAttributesKey WIKI_LINK_REF_ATTR_KEY = createKey("WIKI_LINK_REF");
+    public static final TextAttributesKey WIKI_LINK_SEPARATOR_ATTR_KEY = createKey("WIKI_LINK_SEPARATOR");
+    public static final TextAttributesKey WIKI_LINK_START_ATTR_KEY = createKey("WIKI_LINK_START");
+    public static final TextAttributesKey WIKI_LINK_TEXT_ATTR_KEY = createKey("WIKI_LINK_TEXT");
 
     private static TextAttributesKey createKey(String key) {
         return createTextAttributesKey("MDP." + key);

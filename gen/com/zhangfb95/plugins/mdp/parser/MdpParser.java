@@ -26,8 +26,8 @@ public class MdpParser implements PsiParser, LightPsiParser {
     if (t == ELEMENT) {
       r = element(b, 0);
     }
-    else if (t == HEADER) {
-      r = header(b, 0);
+    else if (t == LINE) {
+      r = line(b, 0);
     }
     else if (t == LINK) {
       r = link(b, 0);
@@ -43,9 +43,10 @@ public class MdpParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !<<eof>> (link | header | COMMENT)
+  // !<<eof>> (line | COMMENT)
   public static boolean element(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "element")) return false;
+    if (!nextTokenIs(b, "<element>", ANY, COMMENT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ELEMENT, "<element>");
     r = element_0(b, l + 1);
@@ -64,31 +65,14 @@ public class MdpParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // link | header | COMMENT
+  // line | COMMENT
   private static boolean element_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "element_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = link(b, l + 1);
-    if (!r) r = header(b, l + 1);
+    r = line(b, l + 1);
     if (!r) r = consumeToken(b, COMMENT);
     exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // HEADER_LEVEL_1 | HEADER_LEVEL_2 | HEADER_LEVEL_3 | HEADER_LEVEL_4 | HEADER_LEVEL_5 | HEADER_LEVEL_6
-  public static boolean header(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "header")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, HEADER, "<header>");
-    r = consumeToken(b, HEADER_LEVEL_1);
-    if (!r) r = consumeToken(b, HEADER_LEVEL_2);
-    if (!r) r = consumeToken(b, HEADER_LEVEL_3);
-    if (!r) r = consumeToken(b, HEADER_LEVEL_4);
-    if (!r) r = consumeToken(b, HEADER_LEVEL_5);
-    if (!r) r = consumeToken(b, HEADER_LEVEL_6);
-    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -105,13 +89,27 @@ public class MdpParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LINK_BEFORE LINK_AFTER
-  public static boolean link(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "link")) return false;
-    if (!nextTokenIs(b, LINK_BEFORE)) return false;
+  // ANY link ANY
+  public static boolean line(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "line")) return false;
+    if (!nextTokenIs(b, ANY)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 2, LINK_BEFORE, LINK_AFTER);
+    r = consumeToken(b, ANY);
+    r = r && link(b, l + 1);
+    r = r && consumeToken(b, ANY);
+    exit_section_(b, m, LINE, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // WIKI_LINK_START WIKI_LINK_TEXT WIKI_LINK_SEPARATOR WIKI_LINK_REF WIKI_LINK_END
+  public static boolean link(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "link")) return false;
+    if (!nextTokenIs(b, WIKI_LINK_START)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, WIKI_LINK_START, WIKI_LINK_TEXT, WIKI_LINK_SEPARATOR, WIKI_LINK_REF, WIKI_LINK_END);
     exit_section_(b, m, LINK, r);
     return r;
   }

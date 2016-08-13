@@ -15,20 +15,13 @@
   psiImplUtilClass="com.zhangfb95.plugins.mdp.psi.impl.MdpPsiImplUtil"
 
   tokens=[
-    LEFT_BRACKET="["
-    RIGHT_BRACKET="]"
-    LEFT_PAREN="("
-    RIGHT_PAREN=")"
+    ANY=".*"
 
-    LINK_BEFORE="regexp:.*\[.*\]"
-    LINK_AFTER="regexp:\(.*\)"
-    COMMENT="regexp:<!--.*-->"
-    HEADER_LEVEL_1="regexp:#\s+"
-    HEADER_LEVEL_2="regexp:##\s+"
-    HEADER_LEVEL_3="regexp:###\s+"
-    HEADER_LEVEL_4="regexp:####\s+"
-    HEADER_LEVEL_5="regexp:#####\s+"
-    HEADER_LEVEL_6="regexp:######\s+"
+    WIKI_LINK_START="["
+    WIKI_LINK_SEPARATOR="]\s+("
+    WIKI_LINK_END=")"
+    WIKI_LINK_TEXT=".*"
+    WIKI_LINK_REF=".*"
   ]
 }
 
@@ -36,8 +29,8 @@ mdpFile ::= item_*
 
 private item_ ::= (element|CRLF)
 
-element ::= !<<eof>> (link | header | COMMENT)
+element ::= !<<eof>> (line | COMMENT)
 
-header ::= (HEADER_LEVEL_1 | HEADER_LEVEL_2 | HEADER_LEVEL_3 | HEADER_LEVEL_4 | HEADER_LEVEL_5 | HEADER_LEVEL_6)
+line ::= (ANY link ANY)
 
-link ::= (LINK_BEFORE LINK_AFTER) {pin=2}
+link ::= (WIKI_LINK_START WIKI_LINK_TEXT WIKI_LINK_SEPARATOR WIKI_LINK_REF WIKI_LINK_END)

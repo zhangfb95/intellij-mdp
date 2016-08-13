@@ -28,20 +28,8 @@ public class MdpElementImpl extends ASTWrapperPsiElement implements MdpElement {
 
   @Override
   @Nullable
-  public MdpHeader getHeader() {
-    return findChildByClass(MdpHeader.class);
-  }
-
-  @Override
-  @Nullable
-  public MdpLink getLink() {
-    return findChildByClass(MdpLink.class);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getComment() {
-    return findChildByType(COMMENT);
+  public MdpLine getLine() {
+    return findChildByClass(MdpLine.class);
   }
 
 }

@@ -8,12 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface MdpElement extends PsiElement {
 
   @Nullable
-  MdpHeader getHeader();
-
-  @Nullable
-  MdpLink getLink();
-
-  @Nullable
-  PsiElement getComment();
+  MdpLine getLine();
 
 }
