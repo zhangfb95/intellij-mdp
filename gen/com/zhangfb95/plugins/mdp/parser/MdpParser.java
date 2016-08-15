@@ -43,10 +43,10 @@ public class MdpParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !<<eof>> (line | COMMENT)
+  // !<<eof>> (line)
   public static boolean element(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "element")) return false;
-    if (!nextTokenIs(b, "<element>", ANY, COMMENT)) return false;
+    if (!nextTokenIs(b, "<element>", ANY, WIKI_LINK_START)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ELEMENT, "<element>");
     r = element_0(b, l + 1);
@@ -65,13 +65,12 @@ public class MdpParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // line | COMMENT
+  // (line)
   private static boolean element_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "element_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = line(b, l + 1);
-    if (!r) r = consumeToken(b, COMMENT);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -89,27 +88,41 @@ public class MdpParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ANY link ANY
+  // ANY? link ANY?
   public static boolean line(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "line")) return false;
-    if (!nextTokenIs(b, ANY)) return false;
+    if (!nextTokenIs(b, "<line>", ANY, WIKI_LINK_START)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, ANY);
+    Marker m = enter_section_(b, l, _NONE_, LINE, "<line>");
+    r = line_0(b, l + 1);
     r = r && link(b, l + 1);
-    r = r && consumeToken(b, ANY);
-    exit_section_(b, m, LINE, r);
+    r = r && line_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // ANY?
+  private static boolean line_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "line_0")) return false;
+    consumeToken(b, ANY);
+    return true;
+  }
+
+  // ANY?
+  private static boolean line_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "line_2")) return false;
+    consumeToken(b, ANY);
+    return true;
+  }
+
   /* ********************************************************** */
-  // WIKI_LINK_START WIKI_LINK_TEXT WIKI_LINK_SEPARATOR WIKI_LINK_REF WIKI_LINK_END
+  // WIKI_LINK_START WIKI_LINK_TEXT WIKI_LINK_END
   public static boolean link(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "link")) return false;
     if (!nextTokenIs(b, WIKI_LINK_START)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, WIKI_LINK_START, WIKI_LINK_TEXT, WIKI_LINK_SEPARATOR, WIKI_LINK_REF, WIKI_LINK_END);
+    r = consumeTokens(b, 0, WIKI_LINK_START, WIKI_LINK_TEXT, WIKI_LINK_END);
     exit_section_(b, m, LINK, r);
     return r;
   }

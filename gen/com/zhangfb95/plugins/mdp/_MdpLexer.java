@@ -64,8 +64,8 @@ public class _MdpLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\0\1\2\1\3\2\2\1\1\1\4"+
-    "\1\5\1\0\1\6\5\0\1\7";
+    "\1\0\1\1\1\0\4\2\1\1\1\3\1\4\1\0"+
+    "\1\5\5\0\1\6";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[18];
@@ -480,31 +480,27 @@ public class _MdpLexer implements FlexLexer {
           case 1: 
             { yybegin(WIKI_LINK); return WIKI_LINK_TEXT;
             }
-          case 8: break;
+          case 7: break;
           case 2: 
-            { return COMMENT;
+            { return TokenType.WHITE_SPACE;
             }
-          case 9: break;
+          case 8: break;
           case 3: 
-            { yybegin(YYINITIAL); return TokenType.WHITE_SPACE;
-            }
-          case 10: break;
-          case 4: 
             { yybegin(WIKI_LINK); return WIKI_LINK_START;
             }
-          case 11: break;
-          case 5: 
+          case 9: break;
+          case 4: 
             { yybegin(YYINITIAL); return WIKI_LINK_END;
             }
-          case 12: break;
-          case 6: 
+          case 10: break;
+          case 5: 
             { yypushback(yytext().length()); yybegin(WIKI_LINK);
             }
-          case 13: break;
-          case 7: 
-            { yybegin(YYINITIAL); return COMMENT;
+          case 11: break;
+          case 6: 
+            { return COMMENT;
             }
-          case 14: break;
+          case 12: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

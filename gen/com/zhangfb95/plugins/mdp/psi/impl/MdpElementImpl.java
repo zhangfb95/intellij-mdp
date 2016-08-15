@@ -27,9 +27,9 @@ public class MdpElementImpl extends ASTWrapperPsiElement implements MdpElement {
   }
 
   @Override
-  @Nullable
+  @NotNull
   public MdpLine getLine() {
-    return findChildByClass(MdpLine.class);
+    return findNotNullChildByClass(MdpLine.class);
   }
 
 }

@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface MdpElement extends PsiElement {
 
-  @Nullable
+  @NotNull
   MdpLine getLine();
 
 }

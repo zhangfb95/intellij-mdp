@@ -16,10 +16,11 @@
 
   tokens=[
     ANY=".*"
+    COMMENT="<!--\".*\"-->"
 
     WIKI_LINK_START="["
     WIKI_LINK_SEPARATOR="]\s+("
-    WIKI_LINK_END=")"
+    WIKI_LINK_END="]"
     WIKI_LINK_TEXT=".*"
     WIKI_LINK_REF=".*"
   ]
@@ -29,8 +30,8 @@ mdpFile ::= item_*
 
 private item_ ::= (element|CRLF)
 
-element ::= !<<eof>> (line | COMMENT)
+element ::= !<<eof>> (line)
 
-line ::= (ANY link ANY)
+line ::= (ANY? link ANY?)
 
-link ::= (WIKI_LINK_START WIKI_LINK_TEXT WIKI_LINK_SEPARATOR WIKI_LINK_REF WIKI_LINK_END)
+link ::= (WIKI_LINK_START WIKI_LINK_TEXT WIKI_LINK_END)

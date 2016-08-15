@@ -13,9 +13,9 @@ public interface MdpTypes {
   IElementType LINK = new MdpElementType("LINK");
 
   IElementType ANY = new MdpTokenType("ANY");
-  IElementType COMMENT = new MdpTokenType("COMMENT");
+  IElementType COMMENT = new MdpTokenType("<!--\".*\"-->");
   IElementType CRLF = new MdpTokenType("CRLF");
-  IElementType WIKI_LINK_END = new MdpTokenType(")");
+  IElementType WIKI_LINK_END = new MdpTokenType("]");
   IElementType WIKI_LINK_REF = new MdpTokenType(".*");
   IElementType WIKI_LINK_SEPARATOR = new MdpTokenType("]\\s+(");
   IElementType WIKI_LINK_START = new MdpTokenType("[");

@@ -32,8 +32,8 @@ COMMENT="<!--" .* "-->"
 
 %%
 <YYINITIAL> {
-    ({CRLF}|{WHITE_SPACE})+             { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-    {COMMENT}                           { yybegin(YYINITIAL); return COMMENT; }
+    ({CRLF}|{WHITE_SPACE})+             { return TokenType.WHITE_SPACE; }
+    {COMMENT}                           { return COMMENT; }
     {WIKI_LINK}                         { yypushback(yytext().length()); yybegin(WIKI_LINK); }
 }
 
@@ -43,4 +43,4 @@ COMMENT="<!--" .* "-->"
     {WIKI_LINK_TEXT}                    { yybegin(WIKI_LINK); return WIKI_LINK_TEXT; }
 }
 
-[^]                                     { return COMMENT; }
+[^]                                     { return TokenType.WHITE_SPACE; }
