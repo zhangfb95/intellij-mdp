@@ -38,6 +38,9 @@ public class MdpParser implements PsiParser, LightPsiParser {
     else if (t == LINK_TEXT) {
       r = link_text(b, 0);
     }
+    else if (t == WIKI_LINK_REF_PARA) {
+      r = wiki_link_ref_para(b, 0);
+    }
     else {
       r = parse_root_(t, b, 0);
     }
@@ -143,13 +146,15 @@ public class MdpParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // WIKI_LINK_REF_START WIKI_LINK_REF WIKI_LINK_REF_END
+  // WIKI_LINK_REF_START wiki_link_ref_para WIKI_LINK_REF_END
   public static boolean link_ref(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "link_ref")) return false;
     if (!nextTokenIs(b, WIKI_LINK_REF_START)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, WIKI_LINK_REF_START, WIKI_LINK_REF, WIKI_LINK_REF_END);
+    r = consumeToken(b, WIKI_LINK_REF_START);
+    r = r && wiki_link_ref_para(b, l + 1);
+    r = r && consumeToken(b, WIKI_LINK_REF_END);
     exit_section_(b, m, LINK_REF, r);
     return r;
   }
@@ -177,6 +182,18 @@ public class MdpParser implements PsiParser, LightPsiParser {
       c = current_position_(b);
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // WIKI_LINK_REF
+  public static boolean wiki_link_ref_para(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "wiki_link_ref_para")) return false;
+    if (!nextTokenIs(b, WIKI_LINK_REF)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, WIKI_LINK_REF);
+    exit_section_(b, m, WIKI_LINK_REF_PARA, r);
+    return r;
   }
 
 }

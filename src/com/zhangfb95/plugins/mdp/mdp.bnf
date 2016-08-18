@@ -23,8 +23,8 @@
     WIKI_LINK_TEXT_END="]"
     WIKI_LINK_REF_START="("
     WIKI_LINK_REF_END=")"
-    WIKI_LINK_TEXT="regexp:.*"
-    WIKI_LINK_REF="regexp:.*"
+    WIKI_LINK_TEXT="regexp:[^[\[\]\(\)]]*"
+    WIKI_LINK_REF="regexp:[^[\[\]\(\)]]*"
   ]
 }
 
@@ -39,4 +39,10 @@ line ::= (ANY? link ANY?)
 link ::= (link_text SPACE? link_ref)
 
 link_text ::= (WIKI_LINK_TEXT_START WIKI_LINK_TEXT WIKI_LINK_TEXT_END)
-link_ref ::= (WIKI_LINK_REF_START WIKI_LINK_REF WIKI_LINK_REF_END)
+link_ref ::= (WIKI_LINK_REF_START wiki_link_ref_para WIKI_LINK_REF_END)
+
+wiki_link_ref_para ::= WIKI_LINK_REF {
+    mixin="com.zhangfb95.plugins.mdp.psi.impl.MdpNamedElementImpl"
+    implements="com.zhangfb95.plugins.mdp.psi.MdpNamedElement"
+    methods=[getNameIdentifier setName getName]
+}

@@ -13,6 +13,7 @@ public interface MdpTypes {
   IElementType LINK = new MdpElementType("LINK");
   IElementType LINK_REF = new MdpElementType("LINK_REF");
   IElementType LINK_TEXT = new MdpElementType("LINK_TEXT");
+  IElementType WIKI_LINK_REF_PARA = new MdpElementType("WIKI_LINK_REF_PARA");
 
   IElementType ANY = new MdpTokenType(".*");
   IElementType COMMENT = new MdpTokenType("<!--\".*\"-->");
@@ -42,6 +43,9 @@ public interface MdpTypes {
       }
       else if (type == LINK_TEXT) {
         return new MdpLinkTextImpl(node);
+      }
+      else if (type == WIKI_LINK_REF_PARA) {
+        return new MdpWikiLinkRefParaImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

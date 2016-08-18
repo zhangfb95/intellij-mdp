@@ -30,12 +30,12 @@
     </option>
     <option name="MDP.WIKI_LINK_REF_START">
         <value>
-            <option name="FOREGROUND" value="c604b7"/>
+            <option name="FOREGROUND" value="ff0000"/>
         </value>
     </option>
     <option name="MDP.WIKI_LINK_REF_END">
         <value>
-            <option name="FOREGROUND" value="c604b7"/>
+            <option name="FOREGROUND" value="ff0000"/>
         </value>
     </option>
 </list>

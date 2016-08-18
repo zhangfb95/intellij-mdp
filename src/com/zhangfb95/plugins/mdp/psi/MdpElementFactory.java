@@ -10,14 +10,15 @@ import com.zhangfb95.plugins.mdp.file.MdpFileType;
  */
 public class MdpElementFactory {
 
-    /*public static MdpProperty createProperty(Project project, String name) {
+    public static MdpWikiLinkRefPara createLinkRef(Project project, String name) {
         final MdpFile file = createFile(project, name);
-        return (MdpProperty) file.getFirstChild();
-    }*/
+        return (MdpWikiLinkRefPara) file.getChildren()[0].getChildren()[0].getChildren()[0].getChildren()[1].getChildren()[0];
+        //return (MdpLinkRef) (file.getChildren()[3]);
+    }
 
     public static MdpFile createFile(Project project, String text) {
-        String name = "dummy.simple";
-        return (MdpFile) PsiFileFactory.getInstance(project).
-                createFileFromText(name, MdpFileType.INSTANCE, text);
+        String name = "dummy.md";
+        String sText = "[test]("+ text + ")";
+        return (MdpFile) PsiFileFactory.getInstance(project).createFileFromText(name, MdpFileType.INSTANCE, sText);
     }
 }

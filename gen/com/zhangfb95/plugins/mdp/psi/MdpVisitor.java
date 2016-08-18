@@ -27,6 +27,14 @@ public class MdpVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitWikiLinkRefPara(@NotNull MdpWikiLinkRefPara o) {
+    visitNamedElement(o);
+  }
+
+  public void visitNamedElement(@NotNull MdpNamedElement o) {
+    visitPsiElement(o);
+  }
+
   public void visitPsiElement(@NotNull PsiElement o) {
     visitElement(o);
   }
