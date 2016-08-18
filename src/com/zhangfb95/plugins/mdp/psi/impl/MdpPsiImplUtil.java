@@ -1,11 +1,14 @@
 package com.zhangfb95.plugins.mdp.psi.impl;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 import com.zhangfb95.plugins.mdp.psi.MdpElementFactory;
 import com.zhangfb95.plugins.mdp.psi.MdpLinkRef;
 import com.zhangfb95.plugins.mdp.psi.MdpTypes;
 import com.zhangfb95.plugins.mdp.psi.MdpWikiLinkRefPara;
+import com.zhangfb95.plugins.mdp.reference.MdpReference;
 
 /**
  * @author zhangfb
@@ -37,5 +40,9 @@ public class MdpPsiImplUtil {
             return keyNode.getText().replaceAll("\\\\ ", " ");
         }
         return null;
+    }
+
+    public static PsiReference getReference(MdpWikiLinkRefParaImpl element) {
+        return new MdpReference(element, new TextRange(0, element.getNode().getTextLength()));
     }
 }

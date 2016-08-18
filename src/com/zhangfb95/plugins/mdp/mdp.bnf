@@ -44,5 +44,5 @@ link_ref ::= (WIKI_LINK_REF_START wiki_link_ref_para WIKI_LINK_REF_END)
 wiki_link_ref_para ::= WIKI_LINK_REF {
     mixin="com.zhangfb95.plugins.mdp.psi.impl.MdpNamedElementImpl"
     implements="com.zhangfb95.plugins.mdp.psi.MdpNamedElement"
-    methods=[getNameIdentifier setName getName]
+    methods=[getNameIdentifier setName getName getReference]
 }
