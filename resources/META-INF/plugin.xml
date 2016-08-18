@@ -29,6 +29,7 @@
         <lang.parserDefinition language="markdown" implementationClass="com.zhangfb95.plugins.mdp.MdpParserDefinition"/>
         <lang.syntaxHighlighterFactory key="markdown"
                                        implementationClass="com.zhangfb95.plugins.mdp.highlighter.MdpSyntaxHighlighterFactory"/>
+        <psi.referenceContributor implementation="com.zhangfb95.plugins.mdp.reference.MdpReferenceContributor"/>
     </extensions>
 
     <actions>
