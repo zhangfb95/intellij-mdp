@@ -26,4 +26,16 @@ public class MdpLinkImpl extends ASTWrapperPsiElement implements MdpLink {
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public MdpLinkRef getLinkRef() {
+    return findNotNullChildByClass(MdpLinkRef.class);
+  }
+
+  @Override
+  @NotNull
+  public MdpLinkText getLinkText() {
+    return findNotNullChildByClass(MdpLinkText.class);
+  }
+
 }

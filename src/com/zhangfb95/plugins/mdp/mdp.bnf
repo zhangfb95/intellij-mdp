@@ -17,12 +17,14 @@
   tokens=[
     ANY=".*"
     COMMENT="<!--\".*\"-->"
+    SPACE="\s*"
 
-    WIKI_LINK_START="["
-    WIKI_LINK_SEPARATOR="]\s+("
-    WIKI_LINK_END="]"
-    WIKI_LINK_TEXT=".*"
-    WIKI_LINK_REF=".*"
+    WIKI_LINK_TEXT_START="["
+    WIKI_LINK_TEXT_END="]"
+    WIKI_LINK_REF_START="("
+    WIKI_LINK_REF_END=")"
+    WIKI_LINK_TEXT="regexp:.*"
+    WIKI_LINK_REF="regexp:.*"
   ]
 }
 
@@ -34,4 +36,7 @@ element ::= !<<eof>> (line)
 
 line ::= (ANY? link ANY?)
 
-link ::= (WIKI_LINK_START WIKI_LINK_TEXT WIKI_LINK_END)
+link ::= (link_text SPACE? link_ref)
+
+link_text ::= (WIKI_LINK_TEXT_START WIKI_LINK_TEXT WIKI_LINK_TEXT_END)
+link_ref ::= (WIKI_LINK_REF_START WIKI_LINK_REF WIKI_LINK_REF_END)
