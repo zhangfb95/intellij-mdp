@@ -86,20 +86,25 @@ public class MdpReference extends PsiReferenceBase<PsiElement> implements PsiPol
                 path += s;
             }
         }
-        if (!path.endsWith(".md")) {
-            path += ".md";
-        }
         VirtualFile virtualFile = LocalFileSystem.getInstance().findFileByPath(path);
+        if (virtualFile == null || !virtualFile.isDirectory()) {
+            if (!path.endsWith(".md")) {
+                path += ".md";
+            }
+        }
+        virtualFile = LocalFileSystem.getInstance().findFileByPath(path);
         if (virtualFile != null) {
-            PsiFile relate = PsiManager.getInstance(myElement.getProject()).findFile(virtualFile);
+            PsiElement relate;
+            if (virtualFile.isDirectory()) {
+                relate = PsiManager.getInstance(myElement.getProject()).findDirectory(virtualFile);
+            } else {
+                relate = PsiManager.getInstance(myElement.getProject()).findFile(virtualFile);
+            }
             if (relate != null) {
                 return relate.getOriginalElement();
             }
         }
         return null;
-
-        /*ResolveResult[] resolveResults = multiResolve(false);
-        return resolveResults.length == 1 ? resolveResults[0].getElement() : null;*/
     }
 
     @NotNull
