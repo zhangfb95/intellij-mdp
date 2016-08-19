@@ -5,7 +5,7 @@ import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
 /**
  * @author zhangfb
@@ -24,7 +24,7 @@ public class MdpFile extends PsiFileBase {
 
     @Override
     public String toString() {
-        return "Simple File";
+        return "Markdown File";
     }
 
     @Override
