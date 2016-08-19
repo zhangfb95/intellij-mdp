@@ -32,6 +32,7 @@
         <psi.referenceContributor implementation="com.zhangfb95.plugins.mdp.reference.MdpReferenceContributor"/>
         <lang.refactoringSupport language="markdown" implementationClass="com.zhangfb95.plugins.mdp.reference.MdpRefactoringSupportProvider"/>
         <lang.elementManipulator forClass="com.zhangfb95.plugins.mdp.psi.MdpNamedElement" implementationClass="com.zhangfb95.plugins.mdp.reference.MdpNamedElementManipulator"/>
+        <lang.findUsagesProvider language="markdown" implementationClass="com.zhangfb95.plugins.mdp.reference.MdpFindUsagesProvider"/>
     </extensions>
 
     <actions>
