@@ -2,9 +2,11 @@ package com.zhangfb95.plugins.mdp.reference;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
+import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementResolveResult;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.PsiReferenceBase;
@@ -23,6 +25,7 @@ import com.zhangfb95.plugins.mdp.psi.MdpWikiLinkRefPara;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -74,8 +77,29 @@ public class MdpReference extends PsiReferenceBase<PsiElement> implements PsiPol
     @Nullable
     @Override
     public PsiElement resolve() {
-        ResolveResult[] resolveResults = multiResolve(false);
-        return resolveResults.length == 1 ? resolveResults[0].getElement() : null;
+        PsiFile cur = myElement.getContainingFile();
+        String path = cur.getVirtualFile().getParent().getPath();
+        String[] pathArray = key.split("/");
+        for (String s : pathArray) {
+            if (s != null && !"".equals(s.trim())) {
+                path += File.separator;
+                path += s;
+            }
+        }
+        if (!path.endsWith(".md")) {
+            path += ".md";
+        }
+        VirtualFile virtualFile = LocalFileSystem.getInstance().findFileByPath(path);
+        if (virtualFile != null) {
+            PsiFile relate = PsiManager.getInstance(myElement.getProject()).findFile(virtualFile);
+            if (relate != null) {
+                return relate.getOriginalElement();
+            }
+        }
+        return null;
+
+        /*ResolveResult[] resolveResults = multiResolve(false);
+        return resolveResults.length == 1 ? resolveResults[0].getElement() : null;*/
     }
 
     @NotNull
