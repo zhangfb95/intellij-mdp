@@ -34,4 +34,4 @@ Markdown Plus plugin provides **[Markdown] language support for [IntelliJ IDEA],
 [AppCode]: http://www.jetbrains.com/objc
 [Android Studio]: http://developer.android.com/sdk/installing/studio.html
 [CLion]: https://www.jetbrains.com/clion
-[DataGrip]: ../../a/b/c
+[DataGrip]: https://www.jetbrains.com/datagrip
