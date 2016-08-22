@@ -18,7 +18,15 @@ public class MdpPsiImplUtil {
     public static PsiElement setName(MdpWikiLinkRefParaImpl element, String newName) {
         ASTNode keyNode = element.getNode().findChildByType(MdpTypes.WIKI_LINK_REF);
         if (keyNode != null) {
-            MdpWikiLinkRefPara property = MdpElementFactory.createLinkRef(element.getProject(), newName);
+            String sourceName = element.getName();
+            String suffix;
+            if (sourceName.lastIndexOf("/") > 0) {
+                suffix = sourceName.substring(0, sourceName.lastIndexOf("/") + 1);
+            } else {
+                suffix = "";
+            }
+            String newSuffixName = suffix + newName;
+            MdpWikiLinkRefPara property = MdpElementFactory.createLinkRef(element.getProject(), newSuffixName);
             ASTNode newKeyNode = property.getFirstChild().getNode();
             element.getNode().replaceChild(keyNode, newKeyNode);
         }
