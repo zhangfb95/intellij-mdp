@@ -14,6 +14,7 @@ import com.intellij.psi.ResolveResult;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.indexing.FileBasedIndex;
 import com.zhangfb95.plugins.mdp.file.MdpFile;
 import com.zhangfb95.plugins.mdp.file.MdpFileType;
@@ -143,5 +144,10 @@ public class MdpReference extends PsiReferenceBase<PsiElement> implements PsiPol
             }
         }
         return list;
+    }
+
+    @Override
+    public PsiElement bindToElement(@NotNull PsiElement element) throws IncorrectOperationException {
+        return super.bindToElement(element);
     }
 }
