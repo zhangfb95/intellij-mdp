@@ -22,36 +22,36 @@ import com.intellij.psi.TokenType;
 
 CRLF= \n|\r|\r\n
 WHITE_SPACE=[\ \t\f]
-WIKI_LINK=\[.*?\]\s*\(.*?\)
-WIKI_LINK_TEXT=[^[\[\]\(\)]]*
-WIKI_LINK_REF=[^[\[\]\(\)]]*
+INLINE_LINK=\[.*?\]\s*\(.*?\)
+LINK_TEXT=[^[\[\]\(\)]]*
+LINK_DESTINATION=[^[\[\]\(\)]]*
 COMMENT="<!--" .* "-->"
 
-%state WIKI_LINK, WIKI_LINK_BEFORE, WIKI_LINK_AFTER
+%state INLINE_LINK, LINK_SHOW_TEXT, LINK_DESTINATION
 
 %%
 <YYINITIAL> {
     ({CRLF}|{WHITE_SPACE})+             { return TokenType.WHITE_SPACE; }
     {COMMENT}                           { return COMMENT; }
-    {WIKI_LINK}                         { yypushback(yytext().length()); yybegin(WIKI_LINK); }
+    {INLINE_LINK}                       { yypushback(yytext().length()); yybegin(INLINE_LINK); }
 }
 
-<WIKI_LINK> {
-    \[.*?\]                             { yypushback(yytext().length()); yybegin(WIKI_LINK_BEFORE); }
-    \(.*?\)                             { yypushback(yytext().length()); yybegin(WIKI_LINK_AFTER); }
+<INLINE_LINK> {
+    \[.*?\]                             { yypushback(yytext().length()); yybegin(LINK_SHOW_TEXT); }
+    \(.*?\)                             { yypushback(yytext().length()); yybegin(LINK_DESTINATION); }
     \s*                                 { return TokenType.WHITE_SPACE; }
 }
 
-<WIKI_LINK_BEFORE> {
-    \[                                  { yybegin(WIKI_LINK_BEFORE); return WIKI_LINK_TEXT_START; }
-    \]                                  { yybegin(WIKI_LINK); return WIKI_LINK_TEXT_END; }
-    {WIKI_LINK_TEXT}                    { yybegin(WIKI_LINK_BEFORE); return WIKI_LINK_TEXT; }
+<LINK_SHOW_TEXT> {
+    \[                                  { yybegin(LINK_SHOW_TEXT); return LEFT_BRACKET; }
+    \]                                  { yybegin(LINK_DESTINATION); return RIGHT_BRACKET; }
+    {LINK_TEXT}                         { yybegin(LINK_SHOW_TEXT); return LINK_TEXT; }
 }
 
-<WIKI_LINK_AFTER> {
-    \(                                  { yybegin(WIKI_LINK_AFTER); return WIKI_LINK_REF_START; }
-    \)                                  { yybegin(YYINITIAL); return WIKI_LINK_REF_END; }
-     {WIKI_LINK_REF}                    { yybegin(WIKI_LINK_AFTER); return WIKI_LINK_REF; }
+<LINK_DESTINATION> {
+    \(                                  { yybegin(LINK_DESTINATION); return LEFT_PAREN; }
+    \)                                  { yybegin(YYINITIAL); return RIGHT_PAREN; }
+     {LINK_DESTINATION}                 { yybegin(LINK_DESTINATION); return LINK_REF; }
 }
 
 [^]                                     { return TokenType.WHITE_SPACE; }
