@@ -1,70 +1,52 @@
 {
-  parserClass="com.zhangfb95.plugins.mdp.parser.MdpParser"
+    parserClass="com.zhangfb95.plugins.mdp.parser.MdpParser"
 
-  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
-  psiClassPrefix="Mdp"
-  psiImplClassSuffix="Impl"
-  psiPackage="com.zhangfb95.plugins.mdp.psi"
-  psiImplPackage="com.zhangfb95.plugins.mdp.psi.impl"
+    psiClassPrefix="Mdp"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.zhangfb95.plugins.mdp.psi"
+    psiImplPackage="com.zhangfb95.plugins.mdp.psi.impl"
 
-  elementTypeHolderClass="com.zhangfb95.plugins.mdp.psi.MdpTypes"
-  elementTypeClass="com.zhangfb95.plugins.mdp.psi.MdpElementType"
-  tokenTypeClass="com.zhangfb95.plugins.mdp.psi.MdpTokenType"
+    elementTypeHolderClass="com.zhangfb95.plugins.mdp.psi.MdpTypes"
+    elementTypeClass="com.zhangfb95.plugins.mdp.psi.MdpElementType"
+    tokenTypeClass="com.zhangfb95.plugins.mdp.psi.MdpTokenType"
 
-  tokens=[
-    COMMENT="<!--\".*\"-->"
+    tokens=[
+        COMMENT="<!--\".*\"-->"
 
-    TEXT=".*"
-    SPACE="\s*"
-    LEFT_BRACKET="["
-    RIGHT_BRACKET="]"
-    LEFT_PAREN="("
-    RIGHT_PAREN=")"
-    SLASH="/"
-    COLON=":"
-    POUND="#"
-    STRIKE_3="[-]{3,}"
-    LEFT_ANGLE="<"
-    RIGHT_ANGLE=">"
-    TABLE_SEPARATOR="|"
+        TEXT=".*"
+        SPACE="\s"
+        LEFT_BRACKET="["
+        RIGHT_BRACKET="]"
+        LEFT_PAREN="("
+        RIGHT_PAREN=")"
+        SLASH="/"
+        POUND="#"
+        LEFT_ANGLE="<"
+        RIGHT_ANGLE=">"
 
-    LINK_TEXT="regexp:[^[\[\]\(\)]]*"
-    LINK_REF="regexp:[^[\[\]\(\)]]*"
-    LINK_REF_DIR="regexp:[^[\[\]\(\)]]*"
-    LINK_REF_FILE="regexp:[^[\[\]\(\)]]*"
-    CODE_FENCE_START="regexp:[`]*"
-    CODE_FENCE_LANG="regexp:.*"
-    CODE_FENCE_END="regexp:[`]*"
-    TABLE_CELL="regexp:[^[|]]*"
-    NON_LEFT_PAREN="^[(]"
-  ]
+        LINK_TEXT="regexp:[^[\[\]\(\)]]*"
+        LINK_REF="regexp:[^[\[\]\(\)]]*"
+        LINK_REF_DIR="regexp:[^[\[\]\(\)]]*"
+        LINK_REF_FILE="regexp:[^[\[\]\(\)]]*"
+    ]
 }
 
 mdpFile ::= item_*
 
-private item_ ::= (element | link_definition | atx | code_fence | table | CRLF)
+private item_ ::= (inline | atx | CRLF)
 
-element ::= (TEXT? (inline_link | short_ref_link) TEXT?)
+inline ::= (TEXT? (inline_link) TEXT?)
 
 inline_link ::= (link_show_text SPACE? link_destination SPACE?)
 
 link_show_text ::= (LEFT_BRACKET LINK_TEXT RIGHT_BRACKET)
-link_destination ::= (LEFT_ANGLE? LEFT_PAREN SPACE link_ref SPACE RIGHT_PAREN RIGHT_ANGLE?)
+link_destination ::= (LEFT_ANGLE? LEFT_PAREN link_ref RIGHT_PAREN RIGHT_ANGLE?)
 
 link_ref ::= (link_ref_prefix LINK_REF_FILE)
-link_ref_prefix ::= (LINK_REF_DIR? (SLASH)+)*
+link_ref_prefix ::= (LINK_REF_DIR (SLASH)+)*
 
-short_ref_link ::= (LEFT_BRACKET LINK_TEXT RIGHT_BRACKET SPACE NON_LEFT_PAREN)
-link_definition ::= (SPACE LEFT_BRACKET LINK_TEXT RIGHT_BRACKET COLON SPACE)
-
-atx ::= (atx_header SPACE* atx_content)
-atx_header ::= POUND+
+atx ::= (atx_header SPACE atx_content)
+atx_header ::= POUND
 atx_content ::= TEXT
-
-code_fence ::= (CODE_FENCE_START CODE_FENCE_LANG CRLF TEXT CODE_FENCE_END)
-
-table ::= (table_header CRLF table_middle_separator CRL table_row*)
-table_header ::= ((TABLE_SEPARATOR TABLE_CELL)+ TABLE_CELL)
-table_middle_separator ::= ((TABLE_SEPARATOR STRIKE_3)+TABLE_SEPARATOR)
-table_row ::= ((TABLE_SEPARATOR TABLE_CELL)+ TABLE_CELL)
